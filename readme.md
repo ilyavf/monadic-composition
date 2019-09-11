@@ -2,7 +2,7 @@
 
 ## Intro
 
-Functional programming is a programming paradigm. Its basic concepts are "pure" functions and function composition. Pure means that function does not perform any side effects. Real life programming is all about state and side effects. So, how functional languages deal with this? There is a design pattern called MONAD that was exactly invented to help asyncronous operations and side effects.
+Functional programming is a programming paradigm. Its basic concepts are pure functions and function composition. "Pure" means that function does not perform any side effects. Real life programming is all about state and side effects. So, how functional languages deal with this? There is a design pattern called MONAD that was exactly invented to help with asyncronous operations and side effects.
 
 More widely, monadic composition is a design pattern that allows to write programs in a more abstract way by taking away some boilerplate code that's needed by the program logic.
  
