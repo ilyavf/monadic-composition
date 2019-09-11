@@ -24,8 +24,8 @@ Now, we would like to construct our accounting application using function compos
  
 ```
  const app = compose(add5, double) 
- app(2)
- // >>> (2 + 5) * 2 = 14
+ app(5)
+ // >>> (5 + 5) * 2 = 20
 ```
  
 Lets define our compose function:
@@ -58,8 +58,8 @@ const app = compose([
     double,
     deduct3
 ]) 
-app(2)
-// >>> 11
+app(5)
+// >>> 17
 ```
 
 An interesting thing with this composition is that we can compose whole apps together:
@@ -71,6 +71,7 @@ const app2 = compose([
     deduct3
 ])
 console.log(app2(5))
+// >>> 17 + 5 - 3 = 19
 ```
 
 ## Monadic composition
