@@ -4,7 +4,7 @@
 
 Functional programming is a programming paradigm. Its basic concepts are "pure" functions and function composition. Pure means that function does not perform any side effects. Real life programming is all about state and side effects. So, how functional languages deal with this? There is a design pattern called MONAD that was exactly invented to help asyncronous operations and side effects.
 
-More widely, monadic composition is a design pattern that allows to write programs in a more abstract way by taking away some boilerplate code thats needed by the program logic.
+More widely, monadic composition is a design pattern that allows to write programs in a more abstract way by taking away some boilerplate code that's needed by the program logic.
  
 In this talk I will try to demonstrate what monadic composition is, and how it can help to better structure your code.
 
@@ -121,11 +121,14 @@ resultPromise.then(result => console.log(result))
 
 To be able to use this function for our app we need to update our `compose` helper like this:
 ```
-const compose = fns => x => {
-    return fns.reduce((acc, f) => {
-        return f(acc)
-    }, x)
-}
+const compose = fns => (x => {
+  return fns.reduce((acc, fn) => {
+    if (!(acc instanceof Promise)) {
+      acc = Promise.resolve(acc)
+    }
+    return acc.then(acc => fn(acc))
+  }, x)
+})
 ```
 
 And now we can mix regular and async functions in our app:
