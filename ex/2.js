@@ -1,12 +1,12 @@
-const add5 = x => ['+ 5', x + 5]
-const double = x => ['* 2', x * 2]
-const deduct3 = x => ['- 3', x - 3]
+const add5 = x => [x + 5, '+ 5']
+const double = x => [x * 2, '* 2']
+const deduct3 = x => [x - 3, '- 3']
 
 const compose = fns => x => {
-  return fns.reduce(([desc, x], fn) => {
-    const [desc2, x2] = fn(x)
-    return [desc + ' ' + desc2, x2]
-  }, ['', x])
+  return fns.reduce(([x, desc], fn) => {
+    const [x2, desc2] = fn(x)
+    return [x2, desc + ' ' + desc2]
+  }, [x, ''])
 }
 
 const app = compose([
@@ -16,8 +16,8 @@ const app = compose([
 ])
 
 function run(x) {
-  const res = app(x)
-  console.log(`(${x})${res.join(' = ')}`)
+  const [y, desc] = app(x)
+  console.log(x + desc + ' = ' + y)
 }
 run(10)
-// >>> (10) + 5 - 3 * 2 = 24
+// >>> 10 + 5 - 3 * 2 = 24

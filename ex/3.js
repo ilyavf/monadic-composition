@@ -3,16 +3,13 @@ const double = x => x * 2
 const deduct3 = x => x - 3
 
 const asyncOp = x => Promise.resolve(x + 100)
+// asyncOp(5).then(res => console.log(res))
 
-
-const compose = fns => (x => {
+const compose = fns => x => {
   return fns.reduce((acc, fn) => {
-    if (!(acc instanceof Promise)) {
-      acc = Promise.resolve(acc)
-    }
     return acc.then(acc => fn(acc))
-  }, x)
-})
+  }, Promise.resolve(x))
+}
 
 const app = compose([
   add5,

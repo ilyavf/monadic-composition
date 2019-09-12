@@ -4,9 +4,6 @@ const deduct3 = x => Promise.resolve([x - 3, '- 3'])
 
 const compose = fns => x => {
   return fns.reduce((acc, fn) => {
-    if (!(acc instanceof Promise)) {
-      acc = Promise.resolve(acc)
-    }
     return acc.then(([x, desc]) => {
       let res = fn(x)
       if (!(res instanceof Promise)) {
@@ -16,7 +13,7 @@ const compose = fns => x => {
         return [x2, desc + ' ' + desc2]
       })
     })
-  }, [x, ''])
+  }, Promise.resolve([x, '']))
 }
 
 const app = compose([
@@ -33,8 +30,8 @@ const app2 = compose([
 function run(x) {
   app2(x).then(([y, desc]) => {
     console.log(x + desc + ' = ' + y)
-    // >>> 5  + 5 * 2 - 3 * 2 = 34
   })
 }
 
 run(5)
+// >>> 5  + 5 * 2 - 3 * 2 = 34
